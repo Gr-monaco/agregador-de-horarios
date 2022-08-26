@@ -1,6 +1,9 @@
 # Created by httpswww.toptal.comdevelopersgitignoreapireact,node,reactnative
 # Edit at httpswww.toptal.comdevelopersgitignoretemplates=react,node,reactnative
 
+#vscode
+.vscode
+
 ### Node ###
 # Logs
 logs
