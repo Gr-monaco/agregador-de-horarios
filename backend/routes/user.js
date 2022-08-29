@@ -4,6 +4,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -76,6 +77,10 @@ router.post("/login", async (req, res)=>{
         console.log(err);
         res.status(500).send("Erro não tratado.");
     }
+})
+
+router.post("/authTest", auth, async(req, res) => {
+    res.status(200).send(`Usuário autenticado: ${res.locals.user.user_id}`)
 })
 
 module.exports = router;
