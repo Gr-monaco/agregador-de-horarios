@@ -47,5 +47,35 @@ router.post("/register", async(req, res) => {
     }
 });
 
+router.post("/login", async (req, res)=>{
+    try{
+        const {email, senha} = req.body;
+
+        if(!(email&&senha)){
+            res.status(400).send("E-mail e senha obrigatório.");
+        }
+
+        const usuario = await User.findOne({email});
+
+        if(usuario && (await bcrypt.compare(senha, usuario.password))){
+            const token = jwt.sign({
+                user_id: usuario._id, email
+            },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn:"2h"
+            });
+
+            usuario.token = token;
+
+            res.status(200).json(usuario);
+        }
+
+
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Erro não tratado.");
+    }
+})
 
 module.exports = router;
