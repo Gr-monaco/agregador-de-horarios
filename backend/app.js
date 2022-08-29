@@ -6,8 +6,10 @@ const port = 3000
 
 //ROTAS
 const routesReuniao = require('./routes/reunioes.js');
+const routesUser = require('./routes/user.js')
 
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
 app.use('/reuniao', routesReuniao)
+app.use('/user', routesUser)
 app.listen(port, () => console.log(`App listening on port ${port}.`));
