@@ -3,6 +3,8 @@ const Reuniao = require('../models/reuniao');
 const router = express.Router();
 
 router.post('/cria', async (req, res) => {
+
+    //TODO: horarios customizados
     const reuniao = new Reuniao({
         nome: req.body.nome,
         organizador: req.body.organizador,
