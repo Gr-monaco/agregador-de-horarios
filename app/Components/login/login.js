@@ -5,7 +5,11 @@ function Login(){
 
 return (
         <View>
+            <Text> Usuario </Text>
             <TextInput style={styles.input}></TextInput>
+            <Text> Senha </Text>
+            <TextInput style={styles.input} secureTextEntry={true}></TextInput>
+
         </View>
     )
 }
