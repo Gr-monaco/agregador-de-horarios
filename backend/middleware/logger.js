@@ -28,12 +28,12 @@ let logger = (req, res, next) => {
     const start = process.hrtime();
     const durationInMilliseconds = getRequestDurationMilliseconds();
     res.on('finish',function() {
-        let log = `[${formatted_date}] ${method}:${url} STATUS: [${this.statusCode}]  duration: ${durationInMilliseconds.toLocaleString()} ms\n Body:${JSON.stringify(this.req.body)}`;
-        //colocar logs no banco de dado com informações de body e header
+        let log = `[${formatted_date}] ${method}:${url} STATUS: [${this.statusCode}]  duration: ${durationInMilliseconds.toLocaleString()} ms`;
+                  /* `Body:${JSON.stringify(this.req.body)}`; */
+    
         console.log(log);
     })
-'
-'
+
     next();
 }
 
