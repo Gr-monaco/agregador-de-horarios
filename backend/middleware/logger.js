@@ -29,7 +29,6 @@ let logger = (req, res, next) => {
     const durationInMilliseconds = getRequestDurationMilliseconds();
     res.on('finish',function() {
         let log = `[${formatted_date}] ${method}:${url} STATUS: [${this.statusCode}]  duration: ${durationInMilliseconds.toLocaleString()} ms`;
-                  /* `Body:${JSON.stringify(this.req.body)}`; */
     
         console.log(log);
     })
