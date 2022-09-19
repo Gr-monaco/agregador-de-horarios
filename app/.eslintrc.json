@@ -1,0 +1,29 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "semi":["error", "always"],
+        "indent":"off",
+        "comma-dangle":"off",
+        "no-unused-vars":"warn",
+        "space-before-blocks":"off",
+        "keyword-spacing":"off",
+        "space-before-function-paren":"off"
+    }
+}
