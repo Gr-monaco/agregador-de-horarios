@@ -1,17 +1,15 @@
-import React from 'react'
+import React from 'react';
 import { View, TextInput, StyleSheet, Text } from 'react-native';
 
 function Login(){
-
 return (
         <View>
             <Text> Usuario </Text>
             <TextInput style={styles.input}></TextInput>
             <Text> Senha </Text>
             <TextInput style={styles.input} secureTextEntry={true}></TextInput>
-
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -23,6 +21,4 @@ const styles = StyleSheet.create({
     },
   });
 
-
 export default Login;
-
