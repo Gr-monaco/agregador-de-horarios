@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, Button, Text } from 'react-native';
 import { Formik } from 'formik';
+import { API_URL } from '@env';
+import axios from 'axios';
 
 function Login(){
 return (
   <Formik
     initialValues={{}}
-    onSubmit={values => console.log(values)}
+    onSubmit={values => {
+      console.log(API_URL + 'user/login');
+      axios.post(API_URL + 'user/login', values)
+      .then(res => console.log(res.body)).catch(err => console.log(err.response.data));
+    }}
   >
     {({ handleChange, handleBlur, handleSubmit, values }) => (
       <View>
