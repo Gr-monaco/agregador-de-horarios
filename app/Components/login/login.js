@@ -24,8 +24,8 @@ return (
           style={styles.input}/>
         <Text> Senha </Text>
         <TextInput
-          onChangeText={handleChange('password')}
-          onBlur={handleBlur('password')}
+          onChangeText={handleChange('senha')}
+          onBlur={handleBlur('senha')}
           value={values.senha}
           style={styles.input}
           secureTextEntry={true}></TextInput>
