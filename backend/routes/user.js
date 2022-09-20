@@ -53,11 +53,12 @@ router.post("/login", async (req, res)=>{
         const {email, senha} = req.body;
 
         if(!(email&&senha)){
-            res.status(400).send("E-mail e senha obrigatório.");
+            res.status(400).send('E-mail e senha obrigatório.');
+            return;
         }
 
         const usuario = await User.findOne({email});
-
+        
         if(usuario && (await bcrypt.compare(senha, usuario.password))){
             const token = jwt.sign({
                 user_id: usuario._id, email
