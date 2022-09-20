@@ -1,14 +1,32 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Text } from 'react-native';
+import { Formik } from 'formik';
 
 function Login(){
 return (
-        <View>
-            <Text> Usuario </Text>
-            <TextInput style={styles.input}></TextInput>
-            <Text> Senha </Text>
-            <TextInput style={styles.input} secureTextEntry={true}></TextInput>
-        </View>
+  <Formik
+    initialValues={{}}
+    onSubmit={values => console.log(values)}
+  >
+    {({ handleChange, handleBlur, handleSubmit, values }) => (
+      <View>
+        <Text> Usuario </Text>
+        <TextInput
+          onChangeText={handleChange('email')}
+          onBlur={handleBlur('email')}
+          value={values.email}
+          style={styles.input}/>
+        <Text> Senha </Text>
+        <TextInput
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
+          value={values.senha}
+          style={styles.input}
+          secureTextEntry={true}></TextInput>
+        <Button onPress={handleSubmit} title="Login"></Button>
+      </View>
+    )}
+  </Formik>
     );
 }
 
