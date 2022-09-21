@@ -87,7 +87,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'>
+        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
           {state.userToken == null
           ? (<Stack.Screen name="Login" component={Login}/>)
           : (<Stack.Screen name="Home" component={Home}/>)}
