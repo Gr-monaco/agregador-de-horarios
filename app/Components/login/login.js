@@ -5,8 +5,11 @@ import { API_URL } from '@env';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import PropTypes from 'prop-types';
+import AuthContext from './authContext';
 
 function Login({ navigation }){
+  const { signIn } = React.useContext(AuthContext);
+
   async function testeDeAuth(){
     const credentials = await SecureStore.getItemAsync('token');
     console.log(credentials);
@@ -23,13 +26,13 @@ function Login({ navigation }){
         console.log(API_URL + 'user/login');
         axios.post(API_URL + 'user/login', values)
         .then(async res => {
-          const token = res.data.token;
+          const userToken = res.data.token;
           const email = res.data.email;
-          console.log(token);
+          console.log(userToken);
           console.log(email);
-          await SecureStore.setItemAsync('token', token);
+          await SecureStore.setItemAsync('token', userToken);
           console.log('Usuario Salvo');
-          navigation.navigate('Home');
+          signIn({ userToken });
         }).catch(err => console.log(err.response.data));
       }}
     >
