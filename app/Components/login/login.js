@@ -4,13 +4,16 @@ import { Formik } from 'formik';
 import { API_URL } from '@env';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import PropTypes from 'prop-types';
 
-function Login(){
+function Login({ navigation }){
   async function testeDeAuth(){
     const credentials = await SecureStore.getItemAsync('token');
     console.log(credentials);
     axios.post(API_URL + 'user/authTest', { token: credentials })
-    .then(res => console.log(res.data));
+    .then(res => {
+      console.log(res.data);
+    });
   };
 
   return (
@@ -26,6 +29,7 @@ function Login(){
           console.log(email);
           await SecureStore.setItemAsync('token', token);
           console.log('Usuario Salvo');
+          navigation.navigate('Home');
         }).catch(err => console.log(err.response.data));
       }}
     >
@@ -60,5 +64,11 @@ const styles = StyleSheet.create({
       padding: 10,
     },
   });
+
+Login.propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  };
 
 export default Login;
