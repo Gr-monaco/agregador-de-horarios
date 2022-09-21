@@ -4,8 +4,11 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_URL } from '@env';
+import AuthContext from './authContext';
 
 export default function Home({ navigation }){
+    const { signOut } = React.useContext(AuthContext);
+
     async function testeDeAuth(){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
@@ -17,6 +20,7 @@ export default function Home({ navigation }){
         <View>
             <Text>Ola marilene</Text>
             <Button onPress={testeDeAuth} title="Teste de auth"></Button>
+            <Button onPress={() => signOut()} title="Teste de sair"></Button>
         </View>
     );
 }
