@@ -71,6 +71,7 @@ router.post("/login", async (req, res)=>{
             usuario.token = token;
 
             res.status(200).json(usuario);
+            return;
         }else{
             res.status(401).send("Credenciais invalidos.")
         }
