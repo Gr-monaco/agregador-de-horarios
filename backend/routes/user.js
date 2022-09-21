@@ -83,6 +83,12 @@ router.post("/login", async (req, res)=>{
     }
 })
 
+router.post("/getInfo", auth, async(req, res) => {
+    const email = res.locals.user.email;
+    const usuario = await User.findOne({email});
+    res.status(200).send({usuario})
+})
+
 router.post("/authTest", auth, async(req, res) => {
     res.status(200).send(`Usuário autenticado: ${res.locals.user.user_id}`)
 })
