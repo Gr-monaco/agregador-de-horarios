@@ -5,12 +5,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_URL } from '@env';
 import AuthContext from './authContext';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import PaginaPrincipal from './paginaprincipal';
 
-const Drawer = createDrawerNavigator();
-
-export default function Home({ navigation }){
+export default function PaginaPrincipal({ navigation }){
     const { signOut } = React.useContext(AuthContext);
     const [nomeUsuario, setUsuario] = useState('');
 
@@ -36,13 +32,15 @@ export default function Home({ navigation }){
     }, []);
 
     return(
-        <Drawer.Navigator>
-            <Drawer.Screen name="Pagina principal" component={PaginaPrincipal}/>
-        </Drawer.Navigator>
+        <View>
+            <Text>Ola {nomeUsuario}</Text>
+            <Button onPress={testeDeAuth} title="Teste de auth"></Button>
+            <Button onPress={() => signOut()} title="Teste de sair"></Button>
+        </View>
     );
 }
 
-Home.propTypes = {
+PaginaPrincipal.propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
     }).isRequired,
