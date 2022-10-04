@@ -6,9 +6,10 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import PropTypes from 'prop-types';
 import AuthContext from './authContext';
+import { Toast } from 'toastify-react-native';
 
 function Login({ navigation }){
-  const { signIn } = React.useContext(AuthContext);
+  const { signIn, notification } = React.useContext(AuthContext);
 
   async function testeDeAuth(){
     const credentials = await SecureStore.getItemAsync('token');
@@ -16,6 +17,9 @@ function Login({ navigation }){
     axios.post(API_URL + 'user/authTest', { token: credentials })
     .then(res => {
       console.log(res.data);
+      if(res.status === 200){
+        notification('Bem-vindo!');
+      }
     });
   };
 
@@ -32,6 +36,7 @@ function Login({ navigation }){
           console.log(email);
           await SecureStore.setItemAsync('token', userToken);
           console.log('Usuario Salvo');
+          Toast.success('Login com sucesso!');
           signIn({ userToken });
         }).catch(err => console.log(err.response.data));
       }}

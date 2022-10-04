@@ -7,18 +7,25 @@ import { API_URL } from '@env';
 import AuthContext from './authContext';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import PaginaPrincipal from './paginaprincipal';
+import { Toast } from 'toastify-react-native';
 
 const Drawer = createDrawerNavigator();
 
 export default function Home({ navigation }){
-    const { signOut } = React.useContext(AuthContext);
+    const { signOut, notification } = React.useContext(AuthContext);
     const [nomeUsuario, setUsuario] = useState('');
 
     async function testeDeAuth(){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
+        console.log('ae');
+        notification('epa');
         axios.post(API_URL + 'user/authTest', { token: credentials })
-        .then(res => console.log(res.data));
+        .then(res => {
+            console.log(res.data);
+            notification('OI!');
+            Toast.info('p');
+        });
       };
 
     useEffect(() => {

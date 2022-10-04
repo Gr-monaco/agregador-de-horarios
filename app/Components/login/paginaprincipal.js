@@ -7,12 +7,14 @@ import { API_URL } from '@env';
 import AuthContext from './authContext';
 
 export default function PaginaPrincipal({ navigation }){
-    const { signOut } = React.useContext(AuthContext);
+    const { signOut, notification } = React.useContext(AuthContext);
     const [nomeUsuario, setUsuario] = useState('');
 
     async function testeDeAuth(){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
+        console.log(credentials);
+        notification('epa');
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => console.log(res.data));
       };
