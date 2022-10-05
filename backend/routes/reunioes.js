@@ -1,31 +1,28 @@
 const express = require('express');
-const Reuniao = require('../models/reuniao');
+const Reuniao = require('../models/reuniaoDeUsuarios');
+const auth = require('../middleware/auth.js');
+
 const router = express.Router();
 
-router.post('/cria', async (req, res) => {
+router.post('/adicionaHorario', auth, async (req, res) => {
 
-    //TODO: horarios customizados
-    const reuniao = new Reuniao({
-        nome: req.body.nome,
-        organizador: req.body.organizador,
-        horarios:[{
-                horario_de_inicio:"17:00",
-                horario_de_fim:"18:00"
-            },
-            {
-                horario_de_inicio:"17:30",
-                horario_de_fim:"18:30"
-            }
-        ]
-    });
+    const userId = res.locals.user.user_id;
+    const userEmail = res.locals.user.email;
+    console.log(`Id do Usuario : ${userId}`);
+    console.log(`Email do Usuario : ${userEmail}`);
+
+    const query = {userId: userId};
+    const update = {$push: { horariosDisponiveis: [{variosParticipantes: true, local: 'urlDoZoom', horarios: {horarioInicio: Date.now(), horarioFim: Date.now()}}]}}
+    const options = { upsert: true, new: true,runValidators: true ,setDefaultsOnInsert: true };
 
     try{
-        const novaReuniao = await reuniao.save();
-        res.status(200).json(novaReuniao);
+        const docReuniao = await Reuniao.findOneAndUpdate(query, update, options);
+        res.status(200).json({message: 'Verifique console.', docReuniao}).send();
+    }catch(e){
+        // TODO: retornar erro sem stacktrace
+        res.status(500).json({message: e}).send();
     }
-    catch(error){
-        res.status(500).json({ message: error.message })
-    }
+    return
 })
 
 module.exports = router;
