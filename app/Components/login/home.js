@@ -8,6 +8,7 @@ import AuthContext from './authContext';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import PaginaPrincipal from './paginaprincipal';
 import { Toast } from 'toastify-react-native';
+import EnviaHorarioDisponivel from '../horarios/enviaHorarioDisponivel';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +38,11 @@ export default function Home({ navigation }){
                 console.log(res.data);
                 console.log(res.data.usuario.email);
                 setUsuario(res.data.usuario.email);
+            }).catch(err => {
+                if(err.request.status === 401){
+                    notification('Sessão expirada.');
+                    signOut();
+                }
             });
         }
         getInfoFromDatabase();
@@ -45,6 +51,7 @@ export default function Home({ navigation }){
     return(
         <Drawer.Navigator>
             <Drawer.Screen name="Pagina principal" component={PaginaPrincipal}/>
+            <Drawer.Screen name="Marcar horario" component={EnviaHorarioDisponivel}/>
         </Drawer.Navigator>
     );
 }
