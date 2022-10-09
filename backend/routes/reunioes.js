@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/adicionaHorario', auth, async (req, res) => {
 
+    console.log(res.body);
     const userId = res.locals.user.user_id;
     const userEmail = res.locals.user.email;
     console.log(`Id do Usuario : ${userId}`);
