@@ -1,13 +1,13 @@
 import React from "react";
-import { useHref, useParams } from "react-router-dom";
+import { useHref, useParams, useSearchParams } from "react-router-dom";
 
 export default function Reunioes(){
 
-    const { user } = useParams();
+    const [queryParameters] = useSearchParams();
 
     return(
         <div>
-            <text>{useHref}</text>
+        <p>usuario: {queryParameters.get("user")}</p>
         </div>
     )
 }
