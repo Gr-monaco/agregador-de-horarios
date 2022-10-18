@@ -1,11 +1,13 @@
 import React from "react";
-
+import { useHref, useParams } from "react-router-dom";
 
 export default function Reunioes(){
 
+    const { user } = useParams();
+
     return(
         <div>
-            <text>Oi</text>
+            <text>{useHref}</text>
         </div>
     )
 }

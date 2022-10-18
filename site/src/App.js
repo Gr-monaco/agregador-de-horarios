@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Reunioes />}></Route>
+        <Route path='/:user' element={<Reunioes />}></Route>
       </Routes>
     </BrowserRouter>
   );
