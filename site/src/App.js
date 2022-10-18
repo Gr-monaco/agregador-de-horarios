@@ -6,11 +6,11 @@ import Reunioes from './components/Reunioes';
 function App() {
 
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-      <Route path='/' element={<Reunioes/>}></Route>
+        <Route path='/' element={<Reunioes />}></Route>
       </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
