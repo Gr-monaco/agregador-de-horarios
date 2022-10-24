@@ -79,7 +79,10 @@ export default function App() {
           Toast.info(message);
           return;
         }
-       
+        if (type === "WARN"){
+          Toast.warn(message);
+          return;
+        }
 
         
       }
