@@ -70,7 +70,11 @@ export default function App() {
         if (type === "ERROR"){
           Toast.error(message);
           return;
-        } 
+        }
+        if (type === "SUCESS"){
+          Toast.success(message);
+          return;
+        }
 
         
       }
