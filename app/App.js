@@ -69,6 +69,7 @@ export default function App() {
         console.log('notification called');
         if (type === "ERROR"){
           Toast.error(message);
+          return;
         } 
 
         
