@@ -65,9 +65,13 @@ export default function App() {
       signUp: async (data) => {
         dispatch({ type: 'SIGN_IN', token: data.userToken });
       },
-      notification: (message) => {
+      notification: (message, type) => {
         console.log('notification called');
-        Toast.success(message);
+        if (type === "ERROR"){
+          Toast.error(message);
+        } 
+
+        
       }
     }),
     []
