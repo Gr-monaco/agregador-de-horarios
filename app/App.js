@@ -75,6 +75,11 @@ export default function App() {
           Toast.success(message);
           return;
         }
+        if (type === "INFO"){
+          Toast.info(message);
+          return;
+        }
+       
 
         
       }
