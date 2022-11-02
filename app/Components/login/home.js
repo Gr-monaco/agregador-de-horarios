@@ -20,11 +20,11 @@ export default function Home({ navigation }){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
         console.log('ae');
-        notification('epa');
+       
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => {
             console.log(res.data);
-            notification('OI!');
+            notification('USUÁRIO AUTENTICADO', 'SUCCESS');
             Toast.info('p');
         });
       };
@@ -40,7 +40,7 @@ export default function Home({ navigation }){
                 setUsuario(res.data.usuario.email);
             }).catch(err => {
                 if(err.request.status === 401){
-                    notification('Sessão expirada.');
+                    notification('Sessão expirada.', 'ERROR');
                     signOut();
                 }
             });
