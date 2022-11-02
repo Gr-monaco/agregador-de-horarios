@@ -20,11 +20,11 @@ export default function Home({ navigation }){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
         console.log('ae');
-        notification('epa');
+       
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => {
             console.log(res.data);
-            notification('OI!');
+            notification('USUÁRIO AUTENTICADO', 'SUCCESS');
             Toast.info('p');
         });
       };
