@@ -36,7 +36,7 @@ function Login({ navigation }){
           console.log(email);
           await SecureStore.setItemAsync('token', userToken);
           console.log('Usuario Salvo');
-          Toast.success('Login com sucesso!');
+          notification('Login com sucesso!', 'SUCCESS');
           signIn({ userToken });
         }).catch(err => console.log(err.response.data));
       }}
