@@ -38,7 +38,7 @@ function Login({ navigation }){
           console.log('Usuario Salvo');
           notification('Login com sucesso!', 'SUCCESS');
           signIn({ userToken });
-        }).catch(err => console.log(err.response.data));
+        }).catch(err => notification('Erro', 'ERROR'));
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
