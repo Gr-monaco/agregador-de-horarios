@@ -71,7 +71,7 @@ export default function App() {
           Toast.error(message);
           return;
         }
-        if (type === "SUCESS"){
+        if (type === "SUCCESS"){
           Toast.success(message);
           return;
         }
