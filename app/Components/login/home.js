@@ -18,7 +18,6 @@ export default function Home({ navigation }){
 
     async function testeDeAuth(){
         const credentials = await SecureStore.getItemAsync('token');
-        console.log(credentials);
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => {
             notification('USUÁRIO AUTENTICADO', 'SUCCESS');
