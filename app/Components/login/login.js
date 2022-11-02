@@ -18,7 +18,7 @@ function Login({ navigation }){
     .then(res => {
       console.log(res.data);
       if(res.status === 200){
-        notification('Bem-vindo!');
+        notification('Bem-vindo!', 'SUCCESS');
       }
     });
   };
