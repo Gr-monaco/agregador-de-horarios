@@ -19,13 +19,9 @@ export default function Home({ navigation }){
     async function testeDeAuth(){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
-        console.log('ae');
-       
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => {
-            console.log(res.data);
             notification('USUÁRIO AUTENTICADO', 'SUCCESS');
-            Toast.info('p');
         });
       };
 
@@ -35,8 +31,6 @@ export default function Home({ navigation }){
             console.log(credentials);
             axios.post(API_URL + 'user/getInfo', { token: credentials })
             .then(res => {
-                console.log(res.data);
-                console.log(res.data.usuario.email);
                 setUsuario(res.data.usuario.email);
             }).catch(err => {
                 if(err.request.status === 401){
