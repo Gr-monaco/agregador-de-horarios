@@ -14,7 +14,7 @@ export default function PaginaPrincipal({ navigation }){
         const credentials = await SecureStore.getItemAsync('token');
         console.log(credentials);
         console.log(credentials);
-        notification('epa');
+        
         axios.post(API_URL + 'user/authTest', { token: credentials })
         .then(res => console.log(res.data));
       };
