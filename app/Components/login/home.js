@@ -40,7 +40,7 @@ export default function Home({ navigation }){
                 setUsuario(res.data.usuario.email);
             }).catch(err => {
                 if(err.request.status === 401){
-                    notification('Sessão expirada.');
+                    notification('Sessão expirada.', 'ERROR');
                     signOut();
                 }
             });
