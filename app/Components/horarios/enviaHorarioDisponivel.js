@@ -10,11 +10,15 @@ import {
 import DateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import { API_URL } from '@env';
+import * as SecureStore from 'expo-secure-store';
 
 function EnviaHorarioDisponivel() {
   const [showHorarioInicialPicker, setShowHorarioInicialPicker] =
     useState(false);
-  const [showHorarioTerminoPicker, setShowHorarioTerminoPicker] = useState(false);
+  const [showHorarioTerminoPicker, setShowHorarioTerminoPicker] =
+    useState(false);
   const [showDiaPicker, setShowDiaPicker] = useState(false);
   const [dia, setDia] = useState(new Date());
   const [horarioInicial, setHorarioInicial] = useState(new Date());
@@ -62,9 +66,20 @@ function EnviaHorarioDisponivel() {
 
   const showHorarioTerminoPickerFunction = () => {
     if (Platform.OS === 'android') {
-        setShowHorarioTerminoPicker(true);
-      }
+      setShowHorarioTerminoPicker(true);
+    }
   };
+
+  async function enviarHorario() {
+    const credentials = await SecureStore.getItemAsync('token');
+
+    axios.post(API_URL + 'reuniao/adicionaHorario', {
+      token: credentials,
+      dia,
+      horarioInicial,
+      horarioTermino,
+    });
+  }
 
   return (
     <View>
@@ -121,6 +136,7 @@ function EnviaHorarioDisponivel() {
           (horarioTermino.getMinutes() < 10 ? '0' : '') +
           horarioTermino.getMinutes()}
       </Text>
+      <Button title="Enviar" onPress={enviarHorario}></Button>
     </View>
   );
 }
