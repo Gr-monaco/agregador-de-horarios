@@ -8,6 +8,8 @@ const logger = require('./middleware/logger.js')
 //ROTAS
 const routesReuniao = require('./routes/reunioes.js');
 const routesUser = require('./routes/user.js')
+const routerGeral = require('./routes/geral.js')
+
 
 app.use(cors());
 app.use(bp.json());
@@ -16,4 +18,5 @@ app.use(logger);
 
 app.use('/reuniao', routesReuniao)
 app.use('/user', routesUser)
+app.use('/', routerGeral)
 app.listen(port, () => console.log(`App listening on port ${port}.`));
