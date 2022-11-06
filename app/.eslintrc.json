@@ -18,6 +18,7 @@
         "react"
     ],
     "rules": {
+        "multiline-ternary":"off",
         "semi":["error", "always"],
         "indent":"off",
         "comma-dangle":"off",
