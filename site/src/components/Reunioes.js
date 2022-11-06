@@ -1,17 +1,26 @@
-import React from "react";
-import { useHref, useParams, useSearchParams } from "react-router-dom";
-import axios from 'axios'
-export default function Reunioes(){
+import React from 'react';
+import { useHref, useParams, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+export default function Reunioes() {
+  const [queryParameters] = useSearchParams();
+  const [reunioes, setReunioes] = React.useState();
 
-    const [queryParameters] = useSearchParams();
+  React.useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_API_URL +
+          `reuniao/pegarReunioes/${queryParameters.get('user')}`
+        }`
+      )
+      .then((res) => setReunioes(res.data))
+      .catch((e) => console.log(e.message));
+  }, []);
 
-    React.useState(async () => {
-        axios.get(`${process.env.REACT_APP_API_URL}`).then((res) => console.log(res))
-    }, [])
-
-    return(
-        <div>
-        <p>usuariao: {queryParameters.get("user")}</p>
-        </div>
-    )
+  return (
+    <div>
+      <p>usuariao: {queryParameters.get('user')}</p>
+      {reunioes !== '' && <p>{JSON.stringify(reunioes)}</p>}
+    </div>
+  );
 }
