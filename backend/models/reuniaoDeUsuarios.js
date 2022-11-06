@@ -12,6 +12,10 @@ const intervaloDeHorarioSchema = mongoose.Schema({
 }, {_id:false})
 
 const horariosDisponiveisSchema = mongoose.Schema({
+    dia:{
+        required: true,
+        type: String
+    },
     horarios: intervaloDeHorarioSchema,
     local: { // Pode ser endereço ou link de zoom
         type: String,
