@@ -49,8 +49,7 @@ export default function App() {
 
       try {
         userToken = await SecureStore.getItemAsync('token');
-      } catch (e) {
-      }
+      } catch (e) {}
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     };
     bootstrapAsync();
@@ -61,31 +60,33 @@ export default function App() {
       signIn: async (data) => {
         dispatch({ type: 'SIGN_IN', token: data.userToken });
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: async () => {
+        try {
+          await SecureStore.deleteItemAsync('token');
+          dispatch({ type: 'SIGN_OUT' });
+        } catch (exception) {}
+      },
       signUp: async (data) => {
         dispatch({ type: 'SIGN_IN', token: data.userToken });
       },
       notification: (message, type) => {
         console.log('notification called');
-        if (type === "ERROR"){
+        if (type === 'ERROR') {
           Toast.error(message);
           return;
         }
-        if (type === "SUCCESS"){
+        if (type === 'SUCCESS') {
           Toast.success(message);
           return;
         }
-        if (type === "INFO"){
+        if (type === 'INFO') {
           Toast.info(message);
           return;
         }
-        if (type === "WARN"){
+        if (type === 'WARN') {
           Toast.warn(message);
-          return;
         }
-
-        
-      }
+      },
     }),
     []
   );
@@ -94,13 +95,18 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
-          {state.userToken == null
-          ? (<Stack.Screen name="Login" component={Login}/>)
-          : (<Stack.Screen name="Home" component={Home}/>)}
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{ headerShown: false }}
+        >
+          {state.userToken == null ? (
+            <Stack.Screen name="Login" component={Login} />
+          ) : (
+            <Stack.Screen name="Home" component={Home} />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
-      <ToastManager/>
+      <ToastManager />
     </AuthContext.Provider>
   );
 }
