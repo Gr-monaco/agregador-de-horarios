@@ -62,4 +62,15 @@ router.post('/adicionaHorario', auth, async (req, res) => {
   return;
 });
 
+router.get('/pegarReunioes/:usuario', async (req, res) => {
+  console.log(req.params);
+  const query = { userId: req.params.usuario }
+  try{
+    const usuario = await Reuniao.findOne(query);
+    res.status(200).send(usuario);
+  }
+  catch(e){
+    res.status(404).send(e.message)
+  }
+})
 module.exports = router;
