@@ -4,7 +4,8 @@ import axios from 'axios';
 export default function Reunioes() {
   const [queryParameters] = useSearchParams();
   const [reunioes, setReunioes] = React.useState();
-
+  const [horarioSelectionado, setHorarioSelecionado] = React.useState('');
+  const [cliente, setCliente] = React.useState('');
 
   React.useEffect(() => {
     axios
@@ -15,11 +16,22 @@ export default function Reunioes() {
         }`
       )
       .then((res) => {
-        setReunioes(res.data);
         console.log(res.data.horariosDisponiveis)
         const datasUnicas = [...new Set(res.data.horariosDisponiveis.map(item => item.dia))];
-        console.log(datasUnicas)
-
+        const opcoesDeReuniao = [];
+        datasUnicas.forEach(element => {
+          const dia = {dia:element};
+          dia.horarios = [];
+          res.data.horariosDisponiveis.forEach(element => {
+            if (element.dia === dia.dia){
+              dia.horarios.push([element.horarios.horarioInicio, element.horarios.horarioFim, element._id]);
+            }
+          })
+          console.log(dia);
+          opcoesDeReuniao.push(dia);
+        });
+        console.log(opcoesDeReuniao)
+        setReunioes(opcoesDeReuniao)
       })
       .catch((e) => console.log(e.message));
   }, []);
@@ -31,8 +43,39 @@ export default function Reunioes() {
   return (
     <div>
       <p>usuariao: {queryParameters.get('user')}</p>
-      <h1>22/11/2022</h1>
-      {reunioes !== '' && <p>{JSON.stringify(reunioes)}</p>}
+      <form onSubmit={(event) => {
+        console.log(event);
+      }}>
+        <text>Pessoa</text>
+        <input value={cliente} onChange={ e => setCliente(e.target.value)}></input>
+        <text>{cliente}</text>
+      {reunioes !== undefined && (() => {
+        let opcao = [];
+        reunioes.forEach((item) => {
+          opcao.push(
+          <div>
+            <h1>{item.dia}</h1>
+            {(()=>{
+              let horarios = [];
+              item.horarios.forEach((horario) => {
+                horarios.push(
+                <div>
+                  <text>{(new Date(horario[0]).getHours() < 10 ? '0' : '') + new Date(horario[0]).getHours()+":"+(new Date(horario[0]).getMinutes() < 10 ? '0' : '') +new Date(horario[0]).getMinutes()+'-'+(new Date(horario[1]).getHours() < 10 ? '0' : '')+new Date(horario[1]).getHours()+":"+(new Date(horario[1]).getMinutes() < 10 ? '0' : '')+new Date(horario[1]).getMinutes()}</text>
+                  <input name='opcao' type={"radio"} value={horario[2]} onClick={(value) => setHorarioSelecionado(value.target.value)}/>
+                </div>)
+              })
+              return horarios
+            })()}
+          </div>)
+        })
+        return opcao
+      })()}
+      <button type={'button'} onClick={()=> {
+        const objeto = {cliente: cliente, id:horarioSelectionado}
+        console.log(objeto)
+      }}>Enviar</button>
+      </form>
+      
     </div>
   );
 }
