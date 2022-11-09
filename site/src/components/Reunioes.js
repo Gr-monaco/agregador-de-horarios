@@ -71,8 +71,12 @@ export default function Reunioes() {
         return opcao
       })()}
       <button type={'button'} onClick={()=> {
-        const objeto = {cliente: cliente, id:horarioSelectionado}
+        const objeto = {cliente: cliente, _id:queryParameters.get('user'), idReuniao: horarioSelectionado}
         console.log(objeto)
+        axios.post(`${
+          process.env.REACT_APP_API_URL +
+          `reuniao/selecionaHorario`
+        }`, objeto)
       }}>Enviar</button>
       </form>
       
