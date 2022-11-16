@@ -90,10 +90,19 @@ router.post('/selecionaHorario', async (req, res) => {
     console.log(mongoose.Types.ObjectId(idReuniao));
     docReuniaoVerHorario.horariosDisponiveis.forEach(e => console.log(e._id))
     const reuniaoSelecionada = docReuniaoVerHorario.horariosDisponiveis.find(e => e._id.equals(new ObjectId(idReuniao)));
-
+    console.log(reuniaoSelecionada);
+    docReuniaoVerHorario.reunioesMarcadas.push({
+      local: reuniaoSelecionada.local,
+      horarios: reuniaoSelecionada.horarios,
+      participantes: [req.body.cliente]
+    })
+    docReuniaoVerHorario.horariosDisponiveis.pull({_id: idReuniao})
+    console.log(docReuniaoVerHorario);
+    docReuniaoVerHorario.save();
     res.status(200).send(docReuniaoVerHorario);
   }
   catch(e){
+    console.log(e.message)
     res.status(404).send(e.message)
   }
 })
