@@ -1,6 +1,7 @@
 const express = require('express');
 const Reuniao = require('../models/reuniaoDeUsuarios');
 const auth = require('../middleware/auth.js');
+const User = require('../models/user.js');
 
 const router = express.Router();
 
@@ -72,5 +73,23 @@ router.get('/pegarReunioes/:usuario', async (req, res) => {
   catch(e){
     res.status(404).send(e.message)
   }
+})
+
+router.post('/pegarReunioesAgendadas', auth, async (req, res) => {
+  console.log(req.params);
+  const email = res.locals.user.email;
+  const usuario = await User.findOne({email});
+  console.log(usuario)
+  try{
+    const query = { userId: usuario._id}
+    const dadosDeUsuario = await Reuniao.findOne(query);
+
+    console.log(dadosDeUsuario)
+    res.status(200).send(dadosDeUsuario.reunioesMarcadas);
+  }
+  catch(e){
+    res.status(404).send(e.message);
+  }
+
 })
 module.exports = router;
