@@ -1,6 +1,8 @@
 const express = require('express');
 const Reuniao = require('../models/reuniaoDeUsuarios');
 const auth = require('../middleware/auth.js');
+const { ObjectID, ObjectId } = require('bson');
+const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 
@@ -70,6 +72,37 @@ router.get('/pegarReunioes/:usuario', async (req, res) => {
     res.status(200).send(usuario);
   }
   catch(e){
+    res.status(404).send(e.message)
+  }
+})
+
+router.post('/selecionaHorario', async (req, res) => {
+  const userId = req.body._id;
+
+  const query = { userId: userId }
+
+  console.log(`Query: ${JSON.stringify(query)}`)
+
+  try{
+    const docReuniaoVerHorario = await Reuniao.findOne(query);
+    const idReuniao = req.body.idReuniao
+    console.log(idReuniao);
+    console.log(mongoose.Types.ObjectId(idReuniao));
+    docReuniaoVerHorario.horariosDisponiveis.forEach(e => console.log(e._id))
+    const reuniaoSelecionada = docReuniaoVerHorario.horariosDisponiveis.find(e => e._id.equals(new ObjectId(idReuniao)));
+    console.log(reuniaoSelecionada);
+    docReuniaoVerHorario.reunioesMarcadas.push({
+      local: reuniaoSelecionada.local,
+      horarios: reuniaoSelecionada.horarios,
+      participantes: [req.body.cliente]
+    })
+    docReuniaoVerHorario.horariosDisponiveis.pull({_id: idReuniao})
+    console.log(docReuniaoVerHorario);
+    docReuniaoVerHorario.save();
+    res.status(200).send(docReuniaoVerHorario);
+  }
+  catch(e){
+    console.log(e.message)
     res.status(404).send(e.message)
   }
 })
