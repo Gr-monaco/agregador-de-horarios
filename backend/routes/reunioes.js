@@ -93,6 +93,7 @@ router.post('/pegarReunioesAgendadas', auth, async (req, res) => {
   catch(e){
     res.status(404).send(e.message);
   }
+})
 
 router.post('/selecionaHorario', async (req, res) => {
   const userId = req.body._id;
@@ -124,4 +125,5 @@ router.post('/selecionaHorario', async (req, res) => {
     res.status(404).send(e.message)
   }
 })
+
 module.exports = router;
