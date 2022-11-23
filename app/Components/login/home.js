@@ -43,19 +43,8 @@ export default function Home({ navigation }){
         getInfoFromDatabase();
     }, []);
 
-    function CustomDrawerContent(props) {
-        return (
-          <DrawerContentScrollView {...props}>
-            <DrawerItemList {...props} />
-            <DrawerItem label="Gerar link" onPress={() => {
-                Clipboard.setStringAsync('teste');
-            }} />
-          </DrawerContentScrollView>
-        );
-      }
-
     return(
-        <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator>
             <Drawer.Screen name="Pagina principal" component={PaginaPrincipal}/>
             <Drawer.Screen name="Marcar horario" component={EnviaHorarioDisponivel}/>
             <Drawer.Screen name="Reunioes Marcas" component={ReunioesMarcadas}/>
