@@ -5,9 +5,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_URL } from '@env';
 import AuthContext from './authContext';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator,DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import PaginaPrincipal from './paginaprincipal';
-import { Toast } from 'toastify-react-native';
+import * as Clipboard from 'expo-clipboard';
 import EnviaHorarioDisponivel from '../horarios/enviaHorarioDisponivel';
 import ReunioesMarcadas from '../horarios/reunioesMarcadas';
 
@@ -42,8 +42,19 @@ export default function Home({ navigation }){
         getInfoFromDatabase();
     }, []);
 
+    function CustomDrawerContent(props) {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label="Gerar link" onPress={() => {
+                Clipboard.setString('teste');
+            }} />
+          </DrawerContentScrollView>
+        );
+      }
+
     return(
-        <Drawer.Navigator>
+        <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Pagina principal" component={PaginaPrincipal}/>
             <Drawer.Screen name="Marcar horario" component={EnviaHorarioDisponivel}/>
             <Drawer.Screen name="Reunioes Marcas" component={ReunioesMarcadas}/>
