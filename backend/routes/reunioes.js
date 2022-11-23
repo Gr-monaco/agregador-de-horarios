@@ -111,6 +111,7 @@ router.post('/selecionaHorario', async (req, res) => {
     const reuniaoSelecionada = docReuniaoVerHorario.horariosDisponiveis.find(e => e._id.equals(new ObjectId(idReuniao)));
     console.log(reuniaoSelecionada);
     docReuniaoVerHorario.reunioesMarcadas.push({
+      dia: reuniaoSelecionada.dia,
       local: reuniaoSelecionada.local,
       horarios: reuniaoSelecionada.horarios,
       participantes: [req.body.cliente]
