@@ -5,7 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_URL } from '@env';
 import AuthContext from './authContext';
-import { createDrawerNavigator,DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import PaginaPrincipal from './paginaprincipal';
 import * as Clipboard from 'expo-clipboard';
 import EnviaHorarioDisponivel from '../horarios/enviaHorarioDisponivel';
