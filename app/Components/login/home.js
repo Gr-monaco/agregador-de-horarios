@@ -5,12 +5,11 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_URL } from '@env';
 import AuthContext from './authContext';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import PaginaPrincipal from './paginaprincipal';
-import * as Clipboard from 'expo-clipboard';
+import { Toast } from 'toastify-react-native';
 import EnviaHorarioDisponivel from '../horarios/enviaHorarioDisponivel';
 import ReunioesMarcadas from '../horarios/reunioesMarcadas';
-import GeradorDeLink from '../geradorDeLink/geradorDeLink';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,7 +47,6 @@ export default function Home({ navigation }){
             <Drawer.Screen name="Pagina principal" component={PaginaPrincipal}/>
             <Drawer.Screen name="Marcar horario" component={EnviaHorarioDisponivel}/>
             <Drawer.Screen name="Reunioes Marcas" component={ReunioesMarcadas}/>
-            <Drawer.Screen name="Gerar link" component={GeradorDeLink}/>
         </Drawer.Navigator>
     );
 }
