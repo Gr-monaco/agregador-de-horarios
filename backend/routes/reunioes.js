@@ -15,7 +15,7 @@ router.post('/adicionaHorario', auth, async (req, res) => {
   console.log(`Email do Usuario : ${userEmail}`);
 
   const diaDaReuniao = new Date(req.body.dia);
-  const diaString = diaDaReuniao.getDate() + '/' +  diaDaReuniao.getMonth() + '/' + diaDaReuniao.getFullYear()
+  const diaString = diaDaReuniao.getDate() + '/' +  (diaDaReuniao.getMonth()+1)  + '/' + diaDaReuniao.getFullYear()
   console.log(`DIA DA REUNIAO: ${diaString}`);
 
   const query = { userId: userId };
@@ -111,6 +111,7 @@ router.post('/selecionaHorario', async (req, res) => {
     const reuniaoSelecionada = docReuniaoVerHorario.horariosDisponiveis.find(e => e._id.equals(new ObjectId(idReuniao)));
     console.log(reuniaoSelecionada);
     docReuniaoVerHorario.reunioesMarcadas.push({
+      dia: reuniaoSelecionada.dia,
       local: reuniaoSelecionada.local,
       horarios: reuniaoSelecionada.horarios,
       participantes: [req.body.cliente]
