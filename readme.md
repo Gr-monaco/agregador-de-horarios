@@ -23,8 +23,11 @@ O aplicativo tem as seguintes funcionalidades:
 Para o funcionamento do projeto, é necessario de variaveis de ambientes.
 ## App
 Crie um arquivo .env na pasta app com as seguintes propriedades:
+
 API_URL=http://172.17.96.75:3000/
+
 WEBSITE_URL=http://localhost:3006/
+
 A API_URL deve conter o ipv4 de sua maquina ( use o comando ipconfig no cmd para achar o ipv4)
 ## Backend
 No backend, coloque o .env enviado no zip junto com o envio da matéria, coloque ele dentro da pasta backend.
