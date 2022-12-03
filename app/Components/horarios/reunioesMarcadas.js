@@ -52,10 +52,7 @@ export default function ReunioesMarcadas(){
   }
 
   function parseDia(stringDeData){
-    const parts = stringDeData.split('/');
-    console.log(parts);
-    const data = new Date(parts[2], (parts[1] - 1), parts[0]);
-    console.log(`Data ${data}`);
+    const data = new Date(stringDeData);
     const diaDaSemana = data.getDay();
     switch(diaDaSemana){
       case 0:
@@ -80,7 +77,7 @@ export default function ReunioesMarcadas(){
   function parseDataDia(stringDeData){
     const data = new Date(stringDeData);
     const dataFinal = (data.getDate < 10 ? '0' : '') + data.getDate() + '/' +
-                      (data.getMonth < 10 ? '0' : '') + (data.getMonth() + 1) + '/' +
+                      (data.getMonth < 10 ? '0' : '') + data.getMonth() + '/' +
                       data.getFullYear();
     return dataFinal;
   }
@@ -95,7 +92,7 @@ export default function ReunioesMarcadas(){
         return(
         <View>
           <Text>Participantes: {item.participantes}</Text>
-          <Text>Dia: {parseDia(item.dia)}, {item.dia} </Text>
+          <Text>Dia: {parseDia(item.horarios.horarioInicio)}, {parseDataDia(item.horarios.horarioInicio)} </Text>
           <Text>Inicio: {parseData(item.horarios.horarioInicio)}</Text>
           <Text>Fim: {parseData(item.horarios.horarioFim)}</Text>
           <Text>Link: {item.local}</Text>

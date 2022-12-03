@@ -25,10 +25,6 @@ const horariosDisponiveisSchema = mongoose.Schema({
 })
 
 const reunioesMarcadasSchema = mongoose.Schema({
-    dia:{
-        required: true,
-        type: String
-    },
     horarios: intervaloDeHorarioSchema,
     local: { // Pode ser endereço ou link de zoom
         required: true,
