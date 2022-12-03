@@ -35,6 +35,7 @@ Não é seguro escrever aqui a propriedade pois ela vai conter a hash da senha e
 
 ## Site
 Crie um .env na pasta site e coloque a seguinte propriedade.
+
 REACT_APP_API_URL=http://localhost:3000/
 
 ## Adendo
